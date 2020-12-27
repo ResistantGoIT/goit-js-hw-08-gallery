@@ -3,7 +3,7 @@ import galleryItems from "/gallery-items.js";
 const galleryListItem = document.querySelector(".js-gallery");
 const modal = document.querySelector(".js-lightbox");
 const modalPhoto = document.querySelector(".lightbox__image");
-const modalCloseBtn = document.querySelector(".lightbox__button");
+const modalClose = document.querySelectorAll(".js-close-modal");
 
 const toHTML = (photo) => `
 <li class="gallery__item">
@@ -35,8 +35,10 @@ galleryListItem.addEventListener("click", (event) => {
   }
 });
 
-modalCloseBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-  modal.classList.remove("is-open");
-  modalPhoto.src = " ";
+modalClose.forEach((el) => {
+  el.addEventListener("click", (event) => {
+    event.preventDefault();
+    modal.classList.remove("is-open");
+    modalPhoto.src = " ";
+  });
 });
