@@ -7,22 +7,21 @@ const modalClose = document.querySelectorAll(".js-close-modal");
 const btnLeft = document.querySelector(".lightbox__button-left");
 const btnRight = document.querySelector(".lightbox__button-right");
 
-const toHTML = (photo) => `
+const toHTML = (el, i) => `
 <li class="gallery__item">
   <a
     class="gallery__link"
-    href="${photo.original}"
+    href="${el.original}"
   >
     <img
       class="gallery__image"
-      src="${photo.preview}"
-      data-source="${photo.original}"
-      alt="${photo.description}"
+      src="${el.preview}"
+      data-source="${el.original}"
+      alt="${el.description}"
     />
   </a>
 </li>
 `;
-
 //Добавление каждого объекта массива в галерею
 function render() {
   const html = galleryItems.map(toHTML).join("");
@@ -39,34 +38,21 @@ galleryListItem.addEventListener("click", (event) => {
     modalPhoto.src = imgSource;
     modal.classList.add("is-open");
   }
-});
 
-//Закрытие модального окна кликом на оверлэй или крестик
-modalClose.forEach((el) => {
-  el.addEventListener("click", (event) => {
-    event.preventDefault();
-    modal.classList.remove("is-open");
-    modalPhoto.src = " ";
+  //Закрытие модального окна кликом на оверлэй или крестик
+  modalClose.forEach((el) => {
+    el.addEventListener("click", (event) => {
+      event.preventDefault();
+      modal.classList.remove("is-open");
+      modalPhoto.src = " ";
+    });
   });
-});
 
-//Закрытие модального окна кнопкой 'Escape'
-window.addEventListener("keydown", onKeydown);
-function onKeydown(event) {
-  if (event.code === "Escape") {
-    modal.classList.remove("is-open");
+  //Закрытие модального окна кнопкой 'Escape'
+  window.addEventListener("keydown", onKeydown);
+  function onKeydown(event) {
+    if (event.code === "Escape") {
+      modal.classList.remove("is-open");
+    }
   }
-}
-
-for (let photo = 0; photo < galleryItems.length; photo += 1) {
-  btnLeft.addEventListener("click", (event) => {
-    if (photo > 0 && photo < 9) {
-      modalPhoto.src = galleryItems[(photo -= 1)].original;
-    }
-  });
-  btnRight.addEventListener("click", (event) => {
-    if (photo <= 0 && photo >= 8) {
-      modalPhoto.src = galleryItems[(photo += 1)].original;
-    }
-  });
-}
+});
