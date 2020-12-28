@@ -1,4 +1,4 @@
-import galleryItems from "/gallery-items.js";
+import galleryItems from "./gallery-items.js";
 
 const galleryListItem = document.querySelector(".js-gallery");
 const modal = document.querySelector(".js-lightbox");
@@ -60,12 +60,12 @@ function onKeydown(event) {
 
 for (let photo = 0; photo < galleryItems.length; photo += 1) {
   btnLeft.addEventListener("click", (event) => {
-    if (photo > 1 && photo < 10) {
+    if (photo > 0 && photo < 9) {
       modalPhoto.src = galleryItems[(photo -= 1)].original;
     }
   });
   btnRight.addEventListener("click", (event) => {
-    if (photo > 1 && photo < 8) {
+    if (photo <= 0 && photo >= 8) {
       modalPhoto.src = galleryItems[(photo += 1)].original;
     }
   });
